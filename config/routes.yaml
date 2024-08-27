@@ -1,5 +1,4 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+payment_process:
+  path: /process/{service}
+  controller: App\Core\Payment\Presentation\Web\Controller\PaymentController
+  methods: [GET]

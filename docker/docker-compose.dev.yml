@@ -9,11 +9,8 @@ services:
       context: ./
       args:
         USER_ID: ${USER_ID}
-    depends_on:
-      - mysql
     environment:
       APP_ENV: 'dev'
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       PHP_IDE_CONFIG: "serverName=unified-payment-gateway.local"
     volumes:
       - ../:/var/www/html
@@ -21,18 +18,6 @@ services:
       - ~/.bash_history:/home/www-data/.bash_history:rw
     secrets:
       - ssh_host_key
-  mysql:
-    image: mysql:8.0.31
-    container_name: unified-payment-gateway-mysql
-    hostname: unified-payment-gateway-mysql
-    environment:
-      MYSQL_DATABASE: unified-payment-gateway_dev
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "${MYSQL_PORT}:3306"
-    volumes:
-      - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
   nginx:
     container_name: unified-payment-gateway-nginx
     hostname: unified-payment-gateway-nginx
