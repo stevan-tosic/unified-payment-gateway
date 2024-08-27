@@ -1,0 +1,50 @@
+services:
+  php:
+    container_name: unified-payment-gateway-php
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    hostname: unified-payment-gateway-php
+    build:
+      dockerfile: ./dev/php/Dockerfile
+      context: ./
+      args:
+        USER_ID: ${USER_ID}
+    depends_on:
+      - mysql
+    environment:
+      APP_ENV: 'dev'
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      PHP_IDE_CONFIG: "serverName=unified-payment-gateway.local"
+    volumes:
+      - ../:/var/www/html
+      - ~/.bash_aliases:/home/www-data/.bash_aliases:rw
+      - ~/.bash_history:/home/www-data/.bash_history:rw
+    secrets:
+      - ssh_host_key
+  mysql:
+    image: mysql:8.0.31
+    container_name: unified-payment-gateway-mysql
+    hostname: unified-payment-gateway-mysql
+    environment:
+      MYSQL_DATABASE: unified-payment-gateway_dev
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
+  nginx:
+    container_name: unified-payment-gateway-nginx
+    hostname: unified-payment-gateway-nginx
+    build:
+      context: ./dev/nginx
+    depends_on:
+      - php
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - ../:/var/www/html/
+      - ${DATA_PATH_HOST}/log/nginx:/var/log/nginx/
+secrets:
+  ssh_host_key:
+    file: ${SSH_PRIVATE_FILE}
