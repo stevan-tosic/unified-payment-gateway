@@ -5,6 +5,8 @@ namespace App\Core\Payment\Infrastructure\Payment;
 use App\Core\Payment\Application\DTO\Response\PaymentResponse;
 use App\Core\Payment\Application\Service\PaymentServiceInterface;
 use App\Core\Payment\Infrastructure\Http\Exceptions\PaymentException;
+use Shift4\Request\CardRequest;
+use Shift4\Request\ChargeRequest;
 use Shift4\Shift4Gateway;
 
 class Shift4PaymentAdapter implements PaymentServiceInterface
@@ -13,17 +15,17 @@ class Shift4PaymentAdapter implements PaymentServiceInterface
     {
         $gateway = new Shift4Gateway('sk_test_FQJcbkC9JCEVwYGNwTjT5vp6');
 
-        $request = [
-            'amount' => $paymentDetails['amount'],
-            'currency' => $paymentDetails['currency'],
-            'card' => [
-                'number' => $paymentDetails['cardNumber'],
-                'expMonth' => $paymentDetails['cardExpMonth'],
-                'expYear' => $paymentDetails['cardExpYear'],
-            ]
-        ];
-
         try {
+            $cardRequest = new CardRequest();
+            $cardRequest->number($paymentDetails['cardNumber'])
+                ->expMonth($paymentDetails['cardExpMonth'])
+                ->expYear($paymentDetails['cardExpYear']);
+
+            $request = new ChargeRequest();
+            $request->amount(floatval($paymentDetails['amount']))
+                ->currency($paymentDetails['currency'])
+                ->card($cardRequest);
+
             $charge = $gateway->createCharge($request);
 
             return new PaymentResponse(
@@ -35,7 +37,7 @@ class Shift4PaymentAdapter implements PaymentServiceInterface
             );
 
         } catch (\Throwable $e) {
-            throw new PaymentException($e->getMessage(), $e->getCode());
+            throw new PaymentException($e->getMessage());
         }
     }
 }

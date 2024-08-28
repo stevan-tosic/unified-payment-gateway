@@ -41,7 +41,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN pecl channel-update pecl.php.net && \
     MAKEFLAGS=-j$(nproc) pecl install apcu pcov xdebug && \
     docker-php-ext-install -j$(nproc) intl pcntl pdo_mysql zip && \
-    php-ext-enable intl pcntl apcu opcache pdo_mysql zip pcov xdebug
+    php-ext-enable intl pcntl apcu opcache pdo_mysql zip pcov
 
 # PHP: Copy configuration files & remove dist files
 COPY dev/php/files/startup.sh /usr/bin/startup.sh

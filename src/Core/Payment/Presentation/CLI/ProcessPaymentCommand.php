@@ -9,6 +9,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand('payment:process')]
@@ -25,7 +26,13 @@ class ProcessPaymentCommand extends Command
     {
         $this
             ->setDescription('Processes a payment through a specified service.')
-            ->addArgument('service', InputArgument::REQUIRED, 'The payment service to use (aci or shift4)');
+            ->addArgument('service', InputArgument::REQUIRED, 'The payment service to use (aci or shift4)')
+            ->addOption('amount', null, InputOption::VALUE_REQUIRED, 'Payment amount')
+            ->addOption('currency', null, InputOption::VALUE_REQUIRED, 'Currency code')
+            ->addOption('cardNumber', null, InputOption::VALUE_REQUIRED, 'Credit card number')
+            ->addOption('cardExpYear', null, InputOption::VALUE_REQUIRED, 'Card expiration year')
+            ->addOption('cardExpMonth', null, InputOption::VALUE_REQUIRED, 'Card expiration month')
+            ->addOption('cardCvv', null, InputOption::VALUE_REQUIRED, 'Card CVV');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -33,11 +40,15 @@ class ProcessPaymentCommand extends Command
         $service = $input->getArgument('service');
 
         $paymentDetails = [
-            'cardNumber' => '4111111111111111',
-            'paymentBrand' => 'VISA'
+            'amount' => $input->getOption('amount'),
+            'currency' => $input->getOption('currency'),
+            'cardNumber' => $input->getOption('cardNumber'),
+            'cardExpYear' => $input->getOption('cardExpYear'),
+            'cardExpMonth' => $input->getOption('cardExpMonth'),
+            'cardCvv' => $input->getOption('cardCvv'),
         ];
 
-        $command = new ProcessPaymentAppCommand(100.00, 'EUR', $paymentDetails, $service);
+        $command = new ProcessPaymentAppCommand($service, $paymentDetails);
         $result = $this->paymentHandler->handle($command);
 
         if (!$result) {
