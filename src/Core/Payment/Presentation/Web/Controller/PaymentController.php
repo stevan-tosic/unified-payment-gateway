@@ -3,30 +3,34 @@
 namespace App\Core\Payment\Presentation\Web\Controller;
 
 use App\Core\Payment\Application\Command\ProcessPaymentCommand;
+use App\Core\Payment\Application\DTO\Request\PaymentRequest;
 use App\Core\Payment\Application\Handler\PaymentHandler;
 use App\Core\Payment\Application\Service\PaymentContext;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
-class PaymentController
+readonly class PaymentController
 {
     public function __construct(
-        readonly PaymentContext $paymentContext,
-        readonly PaymentHandler $paymentHandler,
+        public PaymentContext $paymentContext,
+        public PaymentHandler $paymentHandler,
     ) {
     }
 
-    public function __invoke(Request $request, string $service): JsonResponse
+    public function __invoke(PaymentRequest $request): JsonResponse
     {
         $paymentDetails = [
-            'cardNumber' => '4111111111111111',
-            'paymentBrand' => 'VISA'
+            'amount' => $request->getAmount(),
+            'currency' => $request->getCurrency(),
+            'cardNumber' => $request->getCardNumber(),
+            'cardExpYear' => $request->getCardExpYear(),
+            'cardExpMonth' => $request->getCardExpMonth(),
+            'cardCvv' => $request->getCardCvv(),
         ];
 
-        $command = new ProcessPaymentCommand(100.00, 'EUR', $paymentDetails, $service);
+        $command = new ProcessPaymentCommand($request->getService(), $paymentDetails);
         $result = $this->paymentHandler->handle($command);
 
-        return new JsonResponse($result);
+        return new JsonResponse($result, Response::HTTP_OK);
     }
 }

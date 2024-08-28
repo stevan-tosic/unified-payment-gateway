@@ -1,4 +1,4 @@
 payment_process:
   path: /process/{service}
   controller: App\Core\Payment\Presentation\Web\Controller\PaymentController
-  methods: [GET]
+  methods: [POST]

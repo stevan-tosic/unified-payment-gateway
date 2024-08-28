@@ -8,8 +8,9 @@ parameters:
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
+        public: false
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -20,9 +21,20 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    app.core.payment.infrastructure.http.resolver.request_argument_resolver:
+        class: App\Core\Payment\Infrastructure\Http\Resolver\RequestArgumentResolver
+        arguments:
+            $validator: "@validator"
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     App\Core\Payment\Presentation\Web\Controller\PaymentController:
         public: true
         tags: [ 'controller.service_arguments' ]
+
+    App\Core\Payment\Infrastructure\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

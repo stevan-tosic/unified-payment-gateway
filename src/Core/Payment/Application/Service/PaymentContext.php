@@ -2,6 +2,7 @@
 
 namespace App\Core\Payment\Application\Service;
 
+use App\Core\Payment\Application\DTO\Response\PaymentResponse;
 use App\Core\Payment\Infrastructure\Payment\ACIPaymentAdapter;
 use App\Core\Payment\Infrastructure\Payment\Shift4PaymentAdapter;
 use InvalidArgumentException;
@@ -19,8 +20,8 @@ class PaymentContext
         };
     }
 
-    public function processPayment($amount, $currency, $paymentDetails): array
+    public function processPayment($paymentDetails): PaymentResponse
     {
-        return $this->strategy->processPayment($amount, $currency, $paymentDetails);
+        return $this->strategy->processPayment($paymentDetails);
     }
 }
