@@ -16,8 +16,8 @@
     <junit outputFile="build/logs/phpunit/junit.xml"/>
   </logging>
   <testsuites>
-    <testsuite name="Integration">
-      <directory>./tests/Integration</directory>
+    <testsuite name="Functional">
+      <directory>./tests/Functional</directory>
     </testsuite>
   </testsuites>
 </phpunit>

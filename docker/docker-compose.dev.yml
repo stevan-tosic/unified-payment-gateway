@@ -16,8 +16,6 @@ services:
       - ../:/var/www/html
       - ~/.bash_aliases:/home/www-data/.bash_aliases:rw
       - ~/.bash_history:/home/www-data/.bash_history:rw
-    secrets:
-      - ssh_host_key
   nginx:
     container_name: unified-payment-gateway-nginx
     hostname: unified-payment-gateway-nginx
@@ -30,6 +28,3 @@ services:
     volumes:
       - ../:/var/www/html/
       - ${DATA_PATH_HOST}/log/nginx:/var/log/nginx/
-secrets:
-  ssh_host_key:
-    file: ${SSH_PRIVATE_FILE}

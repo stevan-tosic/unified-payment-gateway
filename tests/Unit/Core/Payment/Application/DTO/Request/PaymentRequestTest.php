@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Core\Payment\Application\DTO\Request;
 
-use App\Core\Payment\Application\Command\Core\Payment\Application\DTO\Request\PaymentRequest;
+use App\Core\Payment\Application\DTO\Request\PaymentRequest;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,7 +27,10 @@ class PaymentRequestTest extends TestCase
             'cardCvv' => '123'
         ];
 
-        $request = new Request([], [], ['service' => 'aci'], [], [], [], json_encode($requestData));
+        $request = new Request(
+            attributes: ['service' => 'aci'],
+            content: json_encode($requestData)
+        );
         $paymentRequest = new PaymentRequest();
         $paymentRequest->setRequest($request);
 

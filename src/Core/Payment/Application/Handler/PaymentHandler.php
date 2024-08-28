@@ -15,7 +15,7 @@ class PaymentHandler
         $this->paymentContext = $paymentContext;
     }
 
-    public function handle(ProcessPaymentCommand $command): PaymentResponse
+    public function handle(ProcessPaymentCommand $command): ?PaymentResponse
     {
         $this->paymentContext->setStrategy($command->getService());
 

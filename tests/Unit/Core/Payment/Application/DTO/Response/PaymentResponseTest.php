@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Core\Payment\Application\DTO\Response;
 
-use App\Core\Payment\Application\Command\Core\Payment\Application\DTO\Response\PaymentResponse;
+use App\Core\Payment\Application\DTO\Response\PaymentResponse;
 use PHPUnit\Framework\TestCase;
 
 class PaymentResponseTest extends TestCase

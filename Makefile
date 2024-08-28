@@ -5,6 +5,7 @@
 PHPUNIT = ./vendor/bin/phpunit -c ./phpunit.xml
 PHPUNIT_NO_COVERAGE = ./vendor/bin/phpunit -c ./phpunit.xml --no-coverage
 PHPUNIT_INTEGRATION = ./vendor/bin/phpunit -c ./phpunit.integration.xml --no-coverage
+PHPUNIT_FUNCTIONAL = ./vendor/bin/phpunit -c ./phpunit.functional.xml --no-coverage
 PHPCSFIXER_FIX = PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php -v --diff --using-cache=no
 PHPCSFIXER_CHECK = ${PHPCSFIXER_FIX} --dry-run
 PHPCS = ./vendor/bin/phpcs --standard=phpcs.xml
@@ -22,6 +23,9 @@ test-unit:
 
 test-integration:
 	${PHPUNIT_INTEGRATION} --testsuite=Integration
+
+test-functional:
+	${PHPUNIT_FUNCTIONAL} --testsuite=Functional
 
 coverage:
 	mkdir -p build/logs/phpunit
@@ -48,6 +52,7 @@ help:
 	#   test	               	Run all tests
 	#   test-unit               Run unit tests
 	#   test-integration        Run integration tests
+	#   test-functional         Run end to end tests
 	#   coverage                Code Coverage display
 	#   install-dependencies    Install dependencies
 	#   update-dependencies     Run composer update

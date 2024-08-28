@@ -19,14 +19,6 @@ RUN if [ -n "$USER_ID" ] && [ "$USER_ID" -lt 60001 ]; then \
 RUN usermod -s /bin/bash www-data && \
     echo 'www-data ALL=(ALL) NOPASSWD: ALL' > '/etc/sudoers.d/www-data'
 
-# USER: copy home
-COPY --chown=www-data:www-data dev/php/files/user-home /home/www-data
-
-# USER: add ssh key and fix permission of the ssh directory
-RUN ln -s /run/secrets/ssh_host_key /home/www-data/.ssh/id_rsa && \
-    chmod 700 /home/www-data/.ssh && \
-    chmod 400 /home/www-data/.ssh/config
-
 # Permissions
 RUN chmod 777 /tmp
 
