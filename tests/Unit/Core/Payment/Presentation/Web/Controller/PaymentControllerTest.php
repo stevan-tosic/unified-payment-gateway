@@ -35,6 +35,7 @@ class PaymentControllerTest extends TestCase
             $this->paymentHandlerMock
         );
     }
+
     public function testInvoke()
     {
         $this->paymentRequestMock

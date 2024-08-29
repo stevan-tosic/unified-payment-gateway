@@ -31,6 +31,16 @@ coverage:
 	mkdir -p build/logs/phpunit
 	${PHPUNIT} --testsuite=Unit && ${COVCHECK} ./build/logs/phpunit/coverage/coverage.xml 100
 
+fix-code-style:
+	${PHPCSFIXER_FIX}
+	mkdir -p build/logs/phpcs
+	${PHPCBF}
+
+code-style:
+	${PHPCSFIXER_CHECK}
+	mkdir -p build/logs/phpcs
+	${PHPCS}
+
 install-dependencies:
 	composer install
 

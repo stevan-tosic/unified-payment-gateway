@@ -53,10 +53,12 @@ class ProcessPaymentCommand extends Command
 
         if (!$result) {
             $output->writeln('Unsupported service selected.');
+
             return Command::FAILURE;
         }
 
         $output->writeln('Payment processed with ' . $service . ': ' . json_encode($result));
+
         return Command::SUCCESS;
     }
 }

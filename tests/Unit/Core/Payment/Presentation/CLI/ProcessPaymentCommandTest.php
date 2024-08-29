@@ -101,4 +101,3 @@ class ProcessPaymentCommandTest extends TestCase
         $this->assertStringContainsString('Unsupported service selected', $output);
     }
 }
-

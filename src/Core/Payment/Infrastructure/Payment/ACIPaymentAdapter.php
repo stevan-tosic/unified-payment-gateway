@@ -47,6 +47,7 @@ class ACIPaymentAdapter implements PaymentServiceInterface
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // This should be set to true in production
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $responseData = curl_exec($ch);
+
         if (curl_errno($ch)) {
             $error = curl_error($ch);
             curl_close($ch);
@@ -54,6 +55,7 @@ class ACIPaymentAdapter implements PaymentServiceInterface
             throw new PaymentException($error);
         }
         curl_close($ch);
+
         return $responseData;
     }
 }

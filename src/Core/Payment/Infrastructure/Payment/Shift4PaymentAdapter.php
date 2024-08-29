@@ -35,7 +35,6 @@ class Shift4PaymentAdapter implements PaymentServiceInterface
                 currency: $charge->getCurrency(),
                 cardBin: $charge->getCard()->getFirst6(),
             );
-
         } catch (\Throwable $e) {
             throw new PaymentException($e->getMessage());
         }

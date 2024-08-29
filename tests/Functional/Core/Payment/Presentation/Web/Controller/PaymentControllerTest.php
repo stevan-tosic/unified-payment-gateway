@@ -18,12 +18,14 @@ class PaymentControllerTest extends WebTestCase
 
         $this->client = self::createClient();
     }
+
     /**
      * @dataProvider serviceDataProvider
      */
     public function testPaymentEndpoint($serviceName)
     {
-        $this->client->request(method: Request::METHOD_POST,
+        $this->client->request(
+            method: Request::METHOD_POST,
             uri: '/process/' . $serviceName,
             server: ['CONTENT_TYPE' => 'application/json'],
             content: json_encode([
@@ -33,7 +35,8 @@ class PaymentControllerTest extends WebTestCase
                 'cardExpYear' => '2025',
                 'cardExpMonth' => '12',
                 'cardCvv' => '123'
-            ]));
+            ])
+        );
 
         $response = $this->client->getResponse();
         $responseData = json_decode($response->getContent(), true);
@@ -48,7 +51,8 @@ class PaymentControllerTest extends WebTestCase
 
     public function testPaymentEndpointFails()
     {
-        $this->client->request(method: Request::METHOD_POST,
+        $this->client->request(
+            method: Request::METHOD_POST,
             uri: '/process/non-existing-service',
             server: ['CONTENT_TYPE' => 'application/json'],
             content: json_encode([
@@ -58,7 +62,8 @@ class PaymentControllerTest extends WebTestCase
                 'cardExpYear' => '2025',
                 'cardExpMonth' => '12',
                 'cardCvv' => '123'
-            ]));
+            ])
+        );
 
         $response = $this->client->getResponse();
         $responseData = json_decode($response->getContent(), true);

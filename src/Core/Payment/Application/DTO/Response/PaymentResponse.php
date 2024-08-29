@@ -11,7 +11,7 @@ readonly class PaymentResponse
         public string $dateOfCreation,
         public float $amount,
         public string $currency,
-        public ?string $cardBin
+        public ?string $cardBin,
     ) {
     }
 }

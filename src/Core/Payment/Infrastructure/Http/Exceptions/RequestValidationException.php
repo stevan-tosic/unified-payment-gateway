@@ -25,6 +25,7 @@ class RequestValidationException extends BadRequestHttpException
         foreach ($violationList as $violation) {
             $errors[] = $violation->getPropertyPath() . ': ' . $violation->getMessage();
         }
+
         return implode(', ', $errors);
     }
 }

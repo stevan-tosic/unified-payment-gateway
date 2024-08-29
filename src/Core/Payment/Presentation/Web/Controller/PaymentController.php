@@ -37,6 +37,5 @@ readonly class PaymentController
         } catch (Throwable $exception) {
             return new JsonResponse($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
-
     }
 }
