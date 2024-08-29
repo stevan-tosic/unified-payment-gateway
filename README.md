@@ -34,23 +34,24 @@ To run unit tests:
    ```
 
 ### Integration Tests
-To run integration tests:
+To run integration tests:  
     ```shell
     docker compose -f docker/docker-compose.dev.yml exec php make test-integration
     ```
 ### Functional Tests
-To run functional tests:
+To run functional tests:  
     ```shell
     docker compose -f docker/docker-compose.dev.yml exec php make test-functional
     ```
 ### Code Coverage
-To generate code coverage reports:
+To generate code coverage reports:  
     ```shell
     docker compose -f docker/docker-compose.dev.yml exec php make coverage
-    ```
+    ```  
 Note: It is easier to run make commands from inside the Docker container. You can SSH into the PHP container and run the commands directly:
-docker compose -f docker/docker-compose.dev.yml exec php bash
-# Now inside the container, you can run:
+docker compose -f docker/docker-compose.dev.yml exec php bash  
+
+Now inside the container, you can run:
 ```shell
 make test-unit
 make test-integration
