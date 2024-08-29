@@ -1,0 +1,76 @@
+swagger: '2.0'
+info:
+    version: 4.7.0
+    title: 'Payment Gateway API'
+    description: 'This API handles payment processing tasks.'
+schemes:
+    - https
+    - http
+basePath: /api/v1/payment
+consumes:
+    - application/json
+produces:
+    - application/json
+paths:
+    /process/{service}:
+        post:
+            summary: 'Process a Payment'
+            description: 'This endpoint processes payments for different services.'
+            parameters:
+                - name: 'service'
+                  in: 'path'
+                  required: true
+                  type: 'string'
+                  description: 'Service identifier for the payment process.'
+                - name: 'body'
+                  in: 'body'
+                  required: true
+                  schema:
+                      type: 'object'
+                      required:
+                          - amount
+                          - currency
+                          - cardNumber
+                          - cardExpYear
+                          - cardExpMonth
+                          - cardCvv
+                      properties:
+                          amount:
+                              type: 'number'
+                              format: 'double'
+                              description: 'Payment amount.'
+                          currency:
+                              type: 'string'
+                              description: 'Currency code (e.g., USD, EUR).'
+                          cardNumber:
+                              type: 'string'
+                              description: 'Credit card number.'
+                          cardExpYear:
+                              type: 'integer'
+                              description: 'Card expiration year.'
+                          cardExpMonth:
+                              type: 'integer'
+                              description: 'Card expiration month.'
+                          cardCvv:
+                              type: 'integer'
+                              description: 'Card CVV number.'
+            responses:
+                '200':
+                    description: 'Payment processed successfully.'
+                    schema:
+                        type: 'object'
+                        properties:
+                            status:
+                                type: 'string'
+                                example: 'success'
+                            transactionId:
+                                type: 'string'
+                                example: 'txn_123456789'
+                '400':
+                    description: 'Bad request when the input parameters are not valid or in case of processing errors.'
+                    schema:
+                        type: 'object'
+                        properties:
+                            error:
+                                type: 'string'
+                                example: 'Invalid card number'
