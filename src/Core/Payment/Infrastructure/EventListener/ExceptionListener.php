@@ -27,7 +27,7 @@ class ExceptionListener
                 'error' => $message,
                 'code' => $statusCode
             ],
-            $statusCode
+            $statusCode,
         );
 
         $event->setResponse($response);

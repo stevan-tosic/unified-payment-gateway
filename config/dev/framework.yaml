@@ -1,0 +1,19 @@
+framework:
+    secret: 'secretPass'
+    router:
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.app
+            doctrine.system_cache_pool:
+                adapter: cache.system
+
+services:
+    jobcloud.metadata.cache:
+        class: Symfony\Component\Cache\Adapter\NullAdapter
+
+jobcloud_parameter_manager:
+    storage:
+        type: none

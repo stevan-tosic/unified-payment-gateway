@@ -8,6 +8,7 @@ use App\Core\Payment\Infrastructure\Http\Exceptions\PaymentException;
 use Shift4\Request\CardRequest;
 use Shift4\Request\ChargeRequest;
 use Shift4\Shift4Gateway;
+use Throwable;
 
 class Shift4PaymentAdapter implements PaymentServiceInterface
 {
@@ -35,7 +36,7 @@ class Shift4PaymentAdapter implements PaymentServiceInterface
                 currency: $charge->getCurrency(),
                 cardBin: $charge->getCard()->getFirst6(),
             );
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             throw new PaymentException($e->getMessage());
         }
     }

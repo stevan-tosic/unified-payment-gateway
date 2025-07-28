@@ -16,7 +16,10 @@ return $config
         '@PSR12' => true,
         'blank_line_before_statement' => [
             'statements' => [
+                'for',
+                'foreach',
                 'if',
+                'switch',
                 'return'
             ],
         ],
@@ -25,11 +28,24 @@ return $config
                 'method' => 'one',
             ],
         ],
+        'global_namespace_import' => [
+            'import_classes' => true,
+            'import_constants' => null,
+            'import_functions' => null,
+        ],
         'no_unused_imports' => true,
+        'ordered_imports' => true,
+        'phpdoc_align' => ['align' => 'vertical'],
+        'phpdoc_trim' => true,
+        'static_lambda' => true,
         'trailing_comma_in_multiline' => [
             'elements' => [
-                'parameters'
+                'arguments',
+                'parameters',
             ]
         ],
-        'static_lambda' => true,
+        'yoda_style' => [
+            'equal' => true,
+            'identical' => true,
+        ],
     ]);

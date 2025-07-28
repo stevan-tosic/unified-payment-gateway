@@ -30,7 +30,7 @@ class ProcessPaymentCommandTest extends TestCase
 
         $this->processPaymentCommand = new ProcessPaymentCommand(
             $this->paymentContextMock,
-            $this->paymentHandlerMock
+            $this->paymentHandlerMock,
         );
     }
 
@@ -52,8 +52,8 @@ class ProcessPaymentCommandTest extends TestCase
                     '2023-10-01',
                     100.00,
                     'EUR',
-                    '411111'
-                )
+                    '411111',
+                ),
             );
 
         $commandTester->execute([

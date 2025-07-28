@@ -35,7 +35,7 @@ class PaymentControllerTest extends WebTestCase
                 'cardExpYear' => '2025',
                 'cardExpMonth' => '12',
                 'cardCvv' => '123'
-            ])
+            ]),
         );
 
         $response = $this->client->getResponse();
@@ -62,7 +62,7 @@ class PaymentControllerTest extends WebTestCase
                 'cardExpYear' => '2025',
                 'cardExpMonth' => '12',
                 'cardCvv' => '123'
-            ])
+            ]),
         );
 
         $response = $this->client->getResponse();

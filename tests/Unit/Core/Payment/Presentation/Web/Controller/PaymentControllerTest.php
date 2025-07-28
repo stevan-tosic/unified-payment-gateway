@@ -32,7 +32,7 @@ class PaymentControllerTest extends TestCase
 
         $this->paymentController = new PaymentController(
             $this->paymentContextMock,
-            $this->paymentHandlerMock
+            $this->paymentHandlerMock,
         );
     }
 
@@ -82,8 +82,8 @@ class PaymentControllerTest extends TestCase
                     '2023-10-01',
                     100.00,
                     'EUR',
-                    '411111'
-                )
+                    '411111',
+                ),
             );
 
         $response = $this->paymentController->__invoke($this->paymentRequestMock);
@@ -99,7 +99,7 @@ class PaymentControllerTest extends TestCase
                 'currency' => 'EUR',
                 'cardBin' => '411111'
             ],
-            json_decode($response->getContent(), true)
+            json_decode($response->getContent(), true),
         );
     }
 }

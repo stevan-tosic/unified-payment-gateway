@@ -29,7 +29,7 @@ class PaymentRequestTest extends TestCase
 
         $request = new Request(
             attributes: ['service' => 'aci'],
-            content: json_encode($requestData)
+            content: json_encode($requestData),
         );
         $paymentRequest = new PaymentRequest();
         $paymentRequest->setRequest($request);

@@ -20,7 +20,7 @@ class PaymentHandler
         $this->paymentContext->setStrategy($command->getService());
 
         return $this->paymentContext->processPayment(
-            $command->getPaymentDetails()
+            $command->getPaymentDetails(),
         );
     }
 }

@@ -32,7 +32,7 @@ class ACIPaymentAdapter implements PaymentServiceInterface
             dateOfCreation: date("Y-m-d H:i:s", (int) $decodedData['timestamp']),
             amount: floatval($decodedData['amount']),
             currency: $decodedData['currency'],
-            cardBin: $decodedData['card']['bin']
+            cardBin: $decodedData['card']['bin'],
         );
     }
 

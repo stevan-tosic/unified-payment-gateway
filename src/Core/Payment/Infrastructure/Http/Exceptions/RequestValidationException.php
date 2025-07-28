@@ -22,6 +22,7 @@ class RequestValidationException extends BadRequestHttpException
     private function formatValidationErrors(ConstraintViolationListInterface $violationList): string
     {
         $errors = [];
+
         foreach ($violationList as $violation) {
             $errors[] = $violation->getPropertyPath() . ': ' . $violation->getMessage();
         }

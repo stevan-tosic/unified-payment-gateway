@@ -16,7 +16,7 @@ class PaymentResponseTest extends TestCase
             '2023-10-01',
             100.00,
             'EUR',
-            '411111'
+            '411111',
         );
 
         self::assertInstanceOf(PaymentResponse::class, $paymentResponse);
@@ -34,7 +34,7 @@ class PaymentResponseTest extends TestCase
             '2023-10-01',
             100.00,
             'EUR',
-            null
+            null,
         );
 
         self::assertInstanceOf(PaymentResponse::class, $paymentResponse);

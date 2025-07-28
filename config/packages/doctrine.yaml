@@ -1,0 +1,20 @@
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        url: 'mysql://root:root@mysql:3306/unified-payment-gateway_dev'
+        charset:  UTF8
+        use_savepoints: true
+    orm:
+        enable_lazy_ghost_objects: true
+        controller_resolver:
+            auto_mapping: false
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+            default:
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
